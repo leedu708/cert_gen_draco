@@ -1,0 +1,66 @@
+<div class='container'>
+  <div class='row'>
+
+    <h1 class='page-header'>DRACO Employee Certificate Generation</h1>
+    <table class='table table-bordered table-hover table-striped'>
+      <thead>
+        <tr>
+          <th class='text-center'>First Name</th>
+          <th class='text-center'>Last Name</th>
+          <th class='text-center'>Email</th>
+          <th class='text-center'>Send Certificate</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat='user in users' class='text-center'>
+          <td>{{ user.user_name }}</td>
+          <td>{{ user.user_last_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button class='btn btn-primary btn-sm'
+                    data-toggle='modal'
+                    data-target='#sendCertificateModal'>Send</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="sendCertificateModal" tabindex="-1" role="dialog" aria-labelledby="sendCertificateModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sendCertificateModalLabel">Send Certificate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form name='addForm'>
+          <div class='form-group'>
+            <label class='h4' for='sendCertificateFName'>Name</label>
+            {{ sendCert.user_name }} {{ sendCert.user_last_name }}
+          </div>
+
+          <div class='form-group'>
+            <label class='h4' for='sendCertificateEmail'>Email</label>
+            {{ sendCert.email }}
+          </div>
+
+          <div class='form-group'>
+            <label class='h4' for='sendCertificateType'>Type</label>
+            {{ sendCert.email }}
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button"
+                class="btn btn-success">Send Certificate</button>
+      </div>
+    </div>
+  </div>
+</div>
