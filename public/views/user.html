@@ -1,5 +1,33 @@
 <div class='container'>
   <div class='row'>
     <h1>{{ user.user_name }}</h1>
+
+    <div class='col-sm-10 col-sm-offset-10 award-wrapper'>
+      <h4>Your Award Recipients</h4>
+      <table class='table table-bordered table-hover table-striped'>
+        <thead>
+          <tr>
+            <th class='text-center'>Recipient Name</th>
+            <th class='text-center'>Recipient Email</th>
+            <th class='text-center'>Award Type</th>
+            <th class='text-center'>Creation Date</th>
+            <th class='text-center'>Send Certificate</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat='award in awards' class='text-center'>
+            <td>{{ award.owner_name }}</td>
+            <td>{{ award.owner }}</td>
+            <td>{{ award.type }}</td>
+            <td>{{ award.creation_time }}</td>
+            <td>
+              <button class='btn btn-primary btn-sm'
+                      ng-click='sent(award.owner)'>Send</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

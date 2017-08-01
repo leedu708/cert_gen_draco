@@ -1,28 +1,30 @@
 draco.controller('userCtrl',
-  ['$scope', '$stateParams', 'apiService',
-  function($scope, $stateParams, apiService) {
+  ['$scope', '$stateParams', '$window', 'apiService',
+  function($scope, $stateParams, $window, apiService) {
     $scope.init = function() {
       var email = $stateParams["email"];
       $scope.getUser(email);
-      $scope.getAwards();
+      $scope.getAwards(email);
     };
 
     $scope.getUser = function(email) {
       apiService.getUser(email).then(function(data) {
         $scope.setData('user', data[0]);
-        console.log(data);
       }, function(error) {
         console.log('INIT FAILED', error);
       });
     };
 
-    $scope.getAwards = function() {
-      apiService.getAwards().then(function(data) {
+    $scope.getAwards = function(email) {
+      apiService.getUserAwards(email).then(function(data) {
         $scope.setData('awards', data);
-        console.log(data);
       }, function(error) {
         console.log('INIT FAILED', error);
       });
+    };
+
+    $scope.sent = function(email) {
+      $window.alert("Award sent to: " + email);
     };
 
     $scope.setData = function(dataName, data) {
