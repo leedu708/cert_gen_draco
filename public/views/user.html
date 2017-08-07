@@ -1,33 +1,72 @@
 <div class='container'>
   <div class='row'>
-    <h1>{{ user.user_name }}</h1>
+    <div class='col-sm-12'>
+      <h1 id='username'>{{ user.user_name }}</h1>
 
-    <div class='col-sm-10 col-sm-offset-10 award-wrapper'>
-      <h4>Your Award Recipients</h4>
-      <table class='table table-bordered table-hover table-striped'>
-        <thead>
-          <tr>
-            <th class='text-center'>Recipient Name</th>
-            <th class='text-center'>Recipient Email</th>
-            <th class='text-center'>Award Type</th>
-            <th class='text-center'>Creation Date</th>
-            <th class='text-center'>Send Certificate</th>
-          </tr>
-        </thead>
+      <div class='col-sm-10 col-sm-offset-10 award-wrapper'>
+        <h4>Your Award Recipients</h4>
+        <table class='table table-bordered table-hover table-striped'>
+          <thead>
+            <tr>
+              <th class='text-center'>Recipient Name</th>
+              <th class='text-center'>Recipient Email</th>
+              <th class='text-center'>Award Type</th>
+              <th class='text-center'>Creation Date</th>
+              <th class='text-center'>Preview Certificate</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr ng-repeat='award in awards' class='text-center'>
-            <td>{{ award.owner_name }}</td>
-            <td>{{ award.owner }}</td>
-            <td>{{ award.type }}</td>
-            <td>{{ award.creation_time }}</td>
-            <td>
-              <button class='btn btn-primary btn-sm'
-                      ng-click='sent(award.owner)'>Send</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          <tbody>
+            <tr ng-repeat='award in awards' class='text-center'>
+              <td>{{ award.owner_name }}</td>
+              <td>{{ award.owner }}</td>
+              <td>{{ award.type }}</td>
+              <td>{{ award.creation_time | date }}</td>
+              <td>
+                <button class='btn btn-primary btn-sm'
+                        data-toggle="modal"
+                        data-target="#previewModal"
+                        ng-click='setPreview(award)'>Preview</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW CERTIFICATE MODAL -->
+<div class="modal fade bd-example-modal-lg" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Preview Certificate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- WEEKLY CERTIFICATE -->
+        <div ng-if="checkWeekCert(preview)" class='cert-week-wrapper'>
+          <h2 class='pName'>{{ preview.owner_name }}</h2>
+          <h4 class='pGiver'>{{ preview.who_created }}</h4>
+          <h4 class='pCreated'>{{ preview.creation_time | date }}</h4>
+          <img src='/files/week.jpg' width='750px' />
+        </div>
+
+        <!-- MONTHLY CERTIFICATE -->
+        <div ng-if="!checkWeekCert(preview)" class='cert-month-wrapper'>
+          <h2 class='pName'>{{ preview.owner_name }}</h2>
+          <h4 class='pGiver'>{{ preview.who_created }}</h4>
+          <h4 class='pCreated'>{{ preview.creation_time | date }}</h4>
+          <img src='/files/month.jpg' width='750px' />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="sent(preview.owner)">Send</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>

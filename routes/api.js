@@ -35,7 +35,7 @@ api.get('/user-awards/:email', function(req, res, next) {
   var createString = 'SELECT full_name as type, owner, owner_name, who_created, creation_time ' +
                      'FROM awards INNER JOIN award_types ON awards.awards_type=award_types.type_id ' +
                      'WHERE who_created=\"' + req.params.email + '\"';
-                     
+
   mysql.pool.query(createString, function(err, result) {
     res.json(result);
   })
