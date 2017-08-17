@@ -1,6 +1,7 @@
 var draco = angular.module('draco', ['ui.router', 'ngAnimate', 'ngSanitize']);
 
-draco.config(function($stateProvider, $urlRouterProvider) {
+draco.config(function($locationProvider, $stateProvider, $urlRouterProvider) {
+  $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
