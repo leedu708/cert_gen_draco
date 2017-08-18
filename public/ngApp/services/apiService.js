@@ -57,5 +57,18 @@ draco.factory('apiService',
       return apiService.makeReq(url, 'GET');
     };
 
+    // email services
+    apiService.sendWeekly = function(input) {
+      var url = '/api/sendWeekly/?';
+      var str = apiService.serialize(input);
+      return apiService.makeReq(url + str, 'GET');
+    };
+
+    apiService.sendMonthly = function(input) {
+      var url = '/api/sendMonthly/?';
+      var str = apiService.serialize(input);
+      return apiService.makeReq(url + str, 'GET');
+    };
+
     return apiService;
   }])

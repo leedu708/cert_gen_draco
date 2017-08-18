@@ -64,7 +64,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="sent(preview.owner)">Send</button>
+        <button ng-if="checkWeekCert(preview)" type="button" class="btn btn-primary" ng-click="sendWeekly(preview)">Send</button>
+        <button ng-if="!checkWeekCert(preview)" type="button" class="btn btn-primary" ng-click="sendMonthly(preview)">Send</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

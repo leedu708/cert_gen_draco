@@ -1,6 +1,6 @@
 draco.controller('userCtrl',
-  ['$scope', '$stateParams', '$window', 'apiService',
-  function($scope, $stateParams, $window, apiService) {
+  ['$scope', '$stateParams', '$window', 'apiService', '$filter',
+  function($scope, $stateParams, $window, apiService, $filter) {
     $scope.init = function() {
       var email = $stateParams["email"];
       $scope.getUser(email);
@@ -31,8 +31,26 @@ draco.controller('userCtrl',
       });
     };
 
-    $scope.sent = function(email) {
-      $window.alert("Award sent to: " + email);
+    $scope.sendWeekly = function(preview) {
+      var toSend = angular.copy(preview);
+      toSend.creation_time = $filter('date')(toSend.creation_time, "MM/dd/yyyy");
+      apiService.sendWeekly(toSend).then(function(data) {
+        $window.alert(data.message);
+        console.log(data);
+      }, function(error) {
+        console.log("FAILED TO SEND WEEKLY EMAIL", error);
+      });
+    };
+
+    $scope.sendMonthly = function(preview) {
+      var toSend = angular.copy(preview);
+      toSend.creation_time = $filter('date')(toSend.creation_time, "MM/dd/yyyy");
+      apiService.sendMonthly(toSend).then(function(data) {
+        $window.alert(data.message);
+        console.log(data);
+      }, function(error) {
+        console.log("FAILED TO SEND MONTHLY EMAIL", error);
+      });
     };
 
     $scope.convertDate = function(date) {
